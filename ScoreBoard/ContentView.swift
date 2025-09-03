@@ -10,8 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @State var scoreA = 0;
     @State var scoreB = 0;
-    @State var teamA = "";
-    @State var teamB = "";
+    @State var teamA = "Team A";
+    @State var teamB = "Team B";
+    @State var resetAlert = false;
+    @State var resetMessage = "";
+    func resetScore(){
+        scoreA = 0
+        scoreB = 0
+    }
     var body: some View {
         ZStack{
             Color(red: 0.48, green: 0.49, blue: 0.88)
@@ -26,27 +32,46 @@ struct ContentView: View {
                 VStack(spacing: 20){
                     HStack{
                         VStack{
-                            Text("Team A")
+                            TextField(text: $teamA, label: { Text("Team A") })
                                 .font(.title)
                                 .fontWeight(.bold)
-                            Text("\(String(scoreB))")
+                                .multilineTextAlignment(.center)
+                            
+                            Text("\(String(scoreA))")
                                 .frame(width: 120,height: 150)
                                 .padding()
                                 .font(.system(size: 60))
-                                .border(Color.black, width: 1)
-
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color.black, lineWidth:2)
+                                )
+                                .background(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(Color(red: 0.2, green: 0.2, blue: 0.6, opacity: 0.6))
+                                )
+                                .foregroundStyle(Color.white)
                         }
                         Spacer()
                         VStack{
-                            Text("Team B")
+                            TextField(text: $teamB, label: {
+                                Text("Team B")
+                                })
                                 .font(.title)
                                 .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
                             Text("\(String(scoreB))")
                                 .frame(width: 120,height: 150)
                                 .padding()
                                 .font(.system(size: 60))
-                                .border(Color.black, width: 1)
-                                .background(Color.indigo)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color.black, lineWidth:2)
+                                )
+                                .background(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(Color(red: 0.2, green: 0.2, blue: 0.6, opacity: 0.6))
+                                )
+                                .foregroundStyle(Color.white)
                         }
  
                     }
@@ -123,7 +148,8 @@ struct ContentView: View {
                 )
                 Spacer()
                 Button(action:{
-                    
+                    print("Reset clicked")
+                    resetAlert = true
                 }){
                     Text("Reset")
                         .padding()
@@ -136,12 +162,37 @@ struct ContentView: View {
                         
                 }
                 .padding(.horizontal)
-                
+                Button(action:{
+                    print("Finish game clicked")
+                }){
+                    Text("Finish game")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(Color.white)
+                        .background(Color.green)
+                        .clipShape(Capsule())
+                        .fontWeight(.bold)
+                }
                 
                 Spacer()
             }
             .padding()
             .frame(maxHeight:.infinity)
+            .alert("Reset Score",isPresented: $resetAlert) {
+                Button(action:{
+                    resetScore()
+                }){
+                    Text("Reset")
+                        .foregroundStyle(Color.red)
+                }
+                Button(action:{
+                    
+                }){
+                    Text("Cancel")
+                }
+            }message: {
+                Text("Are you sure you want to reset?")
+            }
         }
     }
 }
