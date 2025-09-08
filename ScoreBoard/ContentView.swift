@@ -44,7 +44,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color(.black.opacity(0.2))
+                Color(.yellow.opacity(0.1))
                     .ignoresSafeArea()
                 VStack{
                     Text("ScoreBoard")

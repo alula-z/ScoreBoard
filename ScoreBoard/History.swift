@@ -17,7 +17,7 @@ struct History: View{
     var body: some View{
         NavigationView{
             ZStack{
-                Color(.black.opacity(0.2))
+                Color(.yellow.opacity(0.2))
                     .ignoresSafeArea()
                 VStack{
                     VStack{
@@ -25,6 +25,7 @@ struct History: View{
                             .font(.system(size: 30))
                             .fontWeight(.bold)
                             .padding()
+                        
                         VStack{
                             if games.isEmpty{
                                 Text("No games saved")
@@ -44,7 +45,7 @@ struct History: View{
                                         }
                                         .padding(8)
                                         .padding(.horizontal, 10)
-                                        .background(Color.white.opacity(0.5))
+                                        .background(Color.white.opacity(0.7))
                                         .clipShape(.capsule)
                                         Spacer()
                                         Text("\(game.teamB ?? "")")
@@ -56,7 +57,7 @@ struct History: View{
                             
                         }
                         .padding()
-                        .background(Color.gray.opacity(0.4))
+                        .background(Color.gray.opacity(0.3))
                         .cornerRadius(15)
                         
                         Spacer()
