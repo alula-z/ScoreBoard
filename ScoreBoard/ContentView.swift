@@ -16,7 +16,7 @@ struct ContentView: View {
     @State var teamB = "Team B";
     @State var resetAlert = false;
     @State var resetMessage = "";
-    
+    @State var plusBool = true;
     struct Game{
         let teamA:String
         let teamB:String
@@ -44,7 +44,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color(red: 0.48, green: 0.49, blue: 0.88)
+                Color(.black.opacity(0.2))
                     .ignoresSafeArea()
                 VStack{
                     Text("ScoreBoard")
@@ -60,7 +60,7 @@ struct ContentView: View {
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.center)
-                                
+                                    .foregroundStyle(Color.yellow.opacity(0.9))
                                 Text("\(String(scoreA))")
                                     .frame(width: 120,height: 150)
                                     .padding()
@@ -71,9 +71,9 @@ struct ContentView: View {
                                     )
                                     .background(
                                         RoundedRectangle(cornerRadius: 30)
-                                            .fill(Color(red: 0.2, green: 0.2, blue: 0.6, opacity: 0.6))
+                                            .fill(Color.white.opacity(0.2))
                                     )
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.orange)
                             }
                             Spacer()
                             VStack{
@@ -83,6 +83,8 @@ struct ContentView: View {
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                                .foregroundStyle(Color.yellow.opacity(0.9))
                                 Text("\(String(scoreB))")
                                     .frame(width: 120,height: 150)
                                     .padding()
@@ -93,70 +95,105 @@ struct ContentView: View {
                                     )
                                     .background(
                                         RoundedRectangle(cornerRadius: 30)
-                                            .fill(Color(red: 0.2, green: 0.2, blue: 0.6, opacity: 0.6))
+                                            .fill(Color.white.opacity(0.2))
                                     )
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.orange)
                             }
                             
                         }
                         HStack(spacing: 0){
-                            
+                            Button(action:{
+                                plusBool = !plusBool
+                            }){
+                                Image(systemName: "plusminus")
+                                    .foregroundStyle(Color.white)
+                                    .fontWeight(.bold)
+                                    
+                            }
+                            Spacer()
                             //Team A
                             Button(action:{
-                                scoreA += 1
+                                plusBool ? (
+                                    scoreA += 1) : scoreA > 0 ? (scoreA -= 1) : ()
                             }){
-                                Text("+1")
-                                    .foregroundStyle(Color.white)
+                                Text("1")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
                                     .padding()
-                                    .border(Color.black, width: 1)
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
                                 
                             }
+                            Spacer()
                             
                             Button(action:{
-                                scoreA += 2
+                                plusBool ? (
+                                    scoreA += 2) : scoreA > 0 ? (scoreA -= 2) : ()
                             }){
-                                Text("+2")
-                                    .foregroundStyle(Color.white)
+                                Text("2")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
                                     .padding()
-                                    .border(Color.black, width: 1)
-                            }
-                            Button(action:{
-                                scoreA += 3
-                            }){
-                                Text("+3")
-                                    .foregroundStyle(Color.white)
-                                    .padding()
-                                    .border(Color.black, width: 1)
-                                
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
+                                    
                             }
                             
                             Spacer()
-                            //Team B
+                            
                             Button(action:{
-                                scoreB += 1
+                                plusBool ? (
+                                    scoreA += 3) : scoreA > 0 ? (scoreA -= 3) : ()
                             }){
-                                Text("+1")
-                                    .foregroundStyle(Color.white)
+                                Text("3")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
                                     .padding()
-                                    .border(Color.black, width: 1)
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
+                                
                                 
                             }
+                            Spacer()
+                            Spacer()
+                            //Team B
                             Button(action:{
-                                scoreB += 2
+                                plusBool ? (
+                                    scoreB += 1) : scoreB > 0 ? (scoreB -= 1) : ()
                             }){
-                                Text("+2")
-                                    .foregroundStyle(Color.white)
+                                Text("1")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
                                     .padding()
-                                    .border(Color.black, width: 1)
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
+                                
                             }
+                            Spacer()
                             Button(action:{
-                                scoreB += 3
+                                plusBool ? (
+                                    scoreB += 2) : scoreB > 0 ? (scoreB -= 2) : ()
                             }){
-                                Text("+3")
-                                    .foregroundStyle(Color.white)
+                                Text("2")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
                                     .padding()
-                                    .border(Color.black, width: 1)
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
                             }
+                            Spacer()
+                            Button(action:{
+                                plusBool ? (
+                                    scoreB += 3) : scoreB > 0 ? (scoreB -= 3) : ()
+                            }){
+                                Text("3")
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.semibold)
+                                    .padding()
+                                    .background(plusBool ? Color.green : Color.red)
+                                    .cornerRadius(10)
+                            }
+                            Spacer()
                         }
                         
                     }
@@ -164,52 +201,55 @@ struct ContentView: View {
                     .frame(maxWidth:.infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(Color(red: 0.3, green: 0.2, blue: 0.5, opacity: 0.6))
+                            .fill(Color.black.opacity(0.8))
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 30)
                             .stroke(Color.black, lineWidth:2)
                     )
                     Spacer()
-                    Button(action:{
-                        print("Reset clicked")
-                        resetAlert = true
-                    }){
-                        Text("Reset")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .foregroundStyle(Color.white)
-                            .background(Color.orange)
-                            .clipShape(Capsule())
-                            .fontWeight(.bold)
-                        
-                        
+                    HStack{
+                        Button(action:{
+                            print("Reset clicked")
+                            resetAlert = true
+                        }){
+                            Text("Reset")
+                                .padding()
+                                .padding(.vertical, 10)
+                                .frame(maxWidth: .infinity)
+                                .foregroundStyle(Color.white)
+                                .fontWeight(.bold)
+                                .font(.system(size: 20))
+                                .background(Color.orange)
+                                .cornerRadius(10)
+                                .fontWeight(.bold)
+                            
+                            
+                        }
+                        Button(action:{
+                            saveGame()
+                            resetScore()
+                        }){
+                            Text("Finish game")
+                                .padding()
+                                .padding(.vertical, 10)
+                                .frame(maxWidth: .infinity)
+                                .foregroundStyle(Color.white)
+                                .fontWeight(.bold)
+                                .font(.system(size: 20))
+                                .background(Color.green)
+                                .cornerRadius(10)
+                                .fontWeight(.bold)
+                        }
                     }
-                    .padding(.horizontal)
-                    Button(action:{
-                        saveGame()
-                        resetScore()
-                    }){
-                        Text("Finish game")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .foregroundStyle(Color.white)
-                            .background(Color.green)
-                            .clipShape(Capsule())
-                            .fontWeight(.bold)
+                    Spacer()
+                    NavigationLink(destination: History()) {
+                        Image(systemName: "book.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundStyle(Color.black)
                     }
                     
                     Spacer()
-                    NavigationLink(destination: History()) {
-                        Text("View All Games")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .foregroundStyle(Color.white)
-                            .background(Color.blue)
-                            .clipShape(Capsule())
-                            .fontWeight(.bold)
-                    }
-                    .padding(.horizontal)
                 }
                 .padding()
                 .frame(maxHeight:.infinity)
