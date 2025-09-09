@@ -18,18 +18,25 @@ struct ContentView: View {
     @State var resetMessage = "";
     @State var plusBool = true;
     struct Game{
-        let teamA:String
-        let teamB:String
+        var teamA:String
+        var teamB:String
         let scoreA:Int
         let scoreB: Int
+        let date: Date
     }
     func resetScore(){
         scoreA = 0
         scoreB = 0
     }
     func saveGame(){
-        let currGame = Game(teamA: teamA, teamB: teamB, scoreA: scoreA, scoreB: scoreB)
+        var currGame = Game(teamA: teamA, teamB: teamB, scoreA: scoreA, scoreB: scoreB, date: Date.now)
         let entity = GameEntity(context: viewContext)
+        if currGame.teamA == "" {
+            currGame.teamA = "Team A"
+        }
+        if currGame.teamB == "" {
+            currGame.teamB = "Team B"
+        }
         entity.teamA = currGame.teamA
         entity.teamB = currGame.teamB
         entity.scoreA = Int32(currGame.scoreA)
@@ -44,7 +51,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color(.yellow.opacity(0.1))
+                Color(.yellow.opacity(0.2))
                     .ignoresSafeArea()
                 VStack{
                     Text("ScoreBoard")
