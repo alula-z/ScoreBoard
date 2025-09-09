@@ -208,6 +208,8 @@ struct ContentView: View {
                             .stroke(Color.black, lineWidth:2)
                     )
                     Spacer()
+                    Spacer()
+                    
                     HStack{
                         Button(action:{
                             print("Reset clicked")
@@ -243,13 +245,7 @@ struct ContentView: View {
                         }
                     }
                     Spacer()
-                    NavigationLink(destination: History()) {
-                        Image(systemName: "book.circle.fill")
-                            .font(.system(size: 50))
-                            .foregroundStyle(Color.black)
-                    }
                     
-                    Spacer()
                 }
                 .padding()
                 .frame(maxHeight:.infinity)

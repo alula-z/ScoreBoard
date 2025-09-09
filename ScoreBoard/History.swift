@@ -25,41 +25,41 @@ struct History: View{
                             .font(.system(size: 30))
                             .fontWeight(.bold)
                             .padding()
-                        
-                        VStack{
-                            if games.isEmpty{
-                                Text("No games saved")
-                                    .foregroundStyle(Color.gray)
-                            }else{
-                                ForEach(games, id: \.self){game in
-                                    HStack(alignment: .center){
-                                        Text("\(game.teamA ?? "")")
-                                        Spacer()
-                                        HStack{
-                                            Text("\(game.scoreA)")
-                                                .foregroundStyle(game.scoreA > game.scoreB ? .green : game.scoreA < game.scoreB ? .red : .gray)
-                                                
-                                            Text(" - ")
-                                            Text("\(game.scoreB)")
-                                                .foregroundStyle(game.scoreB > game.scoreA ? .green : game.scoreB < game.scoreA ? .red : .gray)
+                        ScrollView{
+                            VStack{
+                                if games.isEmpty{
+                                    Text("No games saved")
+                                        .foregroundStyle(Color.gray)
+                                }else{
+                                    ForEach(games, id: \.self){game in
+                                        HStack(alignment: .center){
+                                            Text("\(game.teamA ?? "")")
+                                            Spacer()
+                                            HStack{
+                                                Text("\(game.scoreA)")
+                                                    .foregroundStyle(game.scoreA > game.scoreB ? .green : game.scoreA < game.scoreB ? .red : .white)
+                                                Text(" - ")
+                                                    .foregroundStyle(Color(red:197, green: 199, blue: 197))
+                                                Text("\(game.scoreB)")
+                                                    .foregroundStyle(game.scoreB > game.scoreA ? .green : game.scoreB < game.scoreA ? .red : .white)
+                                            }
+                                            .padding(8)
+                                            .padding(.horizontal, 10)
+                                            .background(Color.black.opacity(0.7))
+                                            .clipShape(.capsule)
+                                            Spacer()
+                                            Text("\(game.teamB ?? "")")
                                         }
-                                        .padding(8)
-                                        .padding(.horizontal, 10)
-                                        .background(Color.white.opacity(0.7))
-                                        .clipShape(.capsule)
-                                        Spacer()
-                                        Text("\(game.teamB ?? "")")
+                                        .frame(maxWidth: .infinity)
                                     }
-                                    .frame(maxWidth: .infinity)
+                                    
                                 }
                                 
                             }
-                            
+                            .padding()
+                            .background(Color(red: 197, green: 199, blue: 197))
+                            .cornerRadius(15)
                         }
-                        .padding()
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        
                         Spacer()
                     }
                     .padding()
