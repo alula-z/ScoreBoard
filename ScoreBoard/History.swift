@@ -46,6 +46,7 @@ struct History: View {
                                 ForEach(games, id: \.self) { game in
                                     HStack(alignment: .center) {
                                         Text("\(game.teamA ?? "")")
+                                            
                                         Spacer()
                                         HStack {
                                             Text("\(game.scoreA)")

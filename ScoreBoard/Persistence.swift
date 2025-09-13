@@ -10,7 +10,7 @@ struct PersistenceController {
         // Add sample games for preview
         for i in 0..<3 {
             let game = GameEntity(context: viewContext)
-            game.teamA = "Team A\(i + 1)"
+            game.teamA = "Los Angeles Lakers\(i + 1)"
             game.teamB = "Team B\(i + 1)"
             game.scoreA = Int32(i * 10)
             game.scoreB = Int32(i * 50)
