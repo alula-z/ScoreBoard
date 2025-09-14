@@ -30,7 +30,7 @@ struct History: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.yellow.opacity(0.2))
+                Color("BrandBackground")
                     .ignoresSafeArea()
                 VStack {
                     VStack {

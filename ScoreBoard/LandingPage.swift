@@ -16,7 +16,7 @@ struct landingPage: View {
             MainView(selectTab: $selectedTab)
         }else{
             ZStack{
-                Color.black
+                Color("BrandBackground")
                     .ignoresSafeArea()
                 VStack{
                     Spacer()
@@ -27,7 +27,7 @@ struct landingPage: View {
                         .frame(width: 150, height: 150)
                         .cornerRadius(10)
                     Text("ScoreBoard")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                         .font(.system(size: 50))
                         .fontWeight(.bold)
                     Spacer()
@@ -39,7 +39,7 @@ struct landingPage: View {
                             showMain = true
                         }){
                             Text("Start a new game")
-                                .fontWeight(.semibold)
+                                .fontWeight(.bold)
                         }
                         .padding()
                         .padding(.vertical, 15)
@@ -54,15 +54,15 @@ struct landingPage: View {
                             showMain = true
                         }){
                             Text("View History")
-                                .fontWeight(.semibold)
+                                .fontWeight(.bold)
                         }
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.blue)
                         .padding()
                         .padding(.vertical, 15)
                         .frame(maxWidth: 250)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.blue, lineWidth:2)
+                                .stroke(Color.blue, lineWidth:4)
                         )
                     }
                     Spacer()
