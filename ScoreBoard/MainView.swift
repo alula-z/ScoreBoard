@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct MainView: View {
+    @Binding var selectTab: Int
     var body: some View{
-        TabView{
+        TabView(selection: $selectTab){
             ContentView()
                 .tabItem{
                     Label("Game", systemImage: "basketball.fill")
                 }
+                .tag(0)
+            
             History()
                 .tabItem{
                     Label("History", systemImage: "book.fill")
                 }
+                .tag(1)
         }
         .tint(Color.black)
         
     }
 }
 
-#Preview {
-    MainView()
-}
+

@@ -12,7 +12,7 @@ struct ScoreBoardApp: App {
     let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
-            MainView()
+            landingPage()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 
         }
