@@ -85,11 +85,10 @@ struct History: View {
                                             Text(date.formatted(date: .abbreviated, time: .shortened))
                                                 .font(.caption)
                                                 .foregroundStyle(.black.opacity(0.6))
-                                                .padding(1)
                                                 
                                         }
                                     }
-                                    .padding(.vertical,4)
+                                    .padding(.vertical,3)
                                 }
                                 .onDelete(perform: deleteGame)
 

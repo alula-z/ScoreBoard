@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07A696F42E662AFB00B54F57 /* ScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		07A697012E662AFD00B54F57 /* ScoreBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07A6970B2E662AFD00B54F57 /* ScoreBoardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreBoardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A696F42E662AFB00B54F57 /* MyScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A697012E662AFD00B54F57 /* MyScoreBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyScoreBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A6970B2E662AFD00B54F57 /* MyScoreBoardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyScoreBoardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -85,9 +85,9 @@
 		07A696F52E662AFB00B54F57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07A696F42E662AFB00B54F57 /* ScoreBoard.app */,
-				07A697012E662AFD00B54F57 /* ScoreBoardTests.xctest */,
-				07A6970B2E662AFD00B54F57 /* ScoreBoardUITests.xctest */,
+				07A696F42E662AFB00B54F57 /* MyScoreBoard.app */,
+				07A697012E662AFD00B54F57 /* MyScoreBoardTests.xctest */,
+				07A6970B2E662AFD00B54F57 /* MyScoreBoardUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		07A696F32E662AFB00B54F57 /* ScoreBoard */ = {
+		07A696F32E662AFB00B54F57 /* MyScoreBoard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07A697152E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoard" */;
+			buildConfigurationList = 07A697152E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoard" */;
 			buildPhases = (
 				07A696F02E662AFB00B54F57 /* Sources */,
 				07A696F12E662AFB00B54F57 /* Frameworks */,
@@ -110,16 +110,16 @@
 			fileSystemSynchronizedGroups = (
 				07A696F62E662AFB00B54F57 /* ScoreBoard */,
 			);
-			name = ScoreBoard;
+			name = MyScoreBoard;
 			packageProductDependencies = (
 			);
 			productName = ScoreBoard;
-			productReference = 07A696F42E662AFB00B54F57 /* ScoreBoard.app */;
+			productReference = 07A696F42E662AFB00B54F57 /* MyScoreBoard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		07A697002E662AFD00B54F57 /* ScoreBoardTests */ = {
+		07A697002E662AFD00B54F57 /* MyScoreBoardTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07A697182E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoardTests" */;
+			buildConfigurationList = 07A697182E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoardTests" */;
 			buildPhases = (
 				07A696FD2E662AFD00B54F57 /* Sources */,
 				07A696FE2E662AFD00B54F57 /* Frameworks */,
@@ -133,16 +133,16 @@
 			fileSystemSynchronizedGroups = (
 				07A697042E662AFD00B54F57 /* ScoreBoardTests */,
 			);
-			name = ScoreBoardTests;
+			name = MyScoreBoardTests;
 			packageProductDependencies = (
 			);
 			productName = ScoreBoardTests;
-			productReference = 07A697012E662AFD00B54F57 /* ScoreBoardTests.xctest */;
+			productReference = 07A697012E662AFD00B54F57 /* MyScoreBoardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		07A6970A2E662AFD00B54F57 /* ScoreBoardUITests */ = {
+		07A6970A2E662AFD00B54F57 /* MyScoreBoardUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07A6971B2E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoardUITests" */;
+			buildConfigurationList = 07A6971B2E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoardUITests" */;
 			buildPhases = (
 				07A697072E662AFD00B54F57 /* Sources */,
 				07A697082E662AFD00B54F57 /* Frameworks */,
@@ -156,11 +156,11 @@
 			fileSystemSynchronizedGroups = (
 				07A6970E2E662AFE00B54F57 /* ScoreBoardUITests */,
 			);
-			name = ScoreBoardUITests;
+			name = MyScoreBoardUITests;
 			packageProductDependencies = (
 			);
 			productName = ScoreBoardUITests;
-			productReference = 07A6970B2E662AFD00B54F57 /* ScoreBoardUITests.xctest */;
+			productReference = 07A6970B2E662AFD00B54F57 /* MyScoreBoardUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07A696EF2E662AFB00B54F57 /* Build configuration list for PBXProject "ScoreBoard" */;
+			buildConfigurationList = 07A696EF2E662AFB00B54F57 /* Build configuration list for PBXProject "MyScoreBoard" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				07A696F32E662AFB00B54F57 /* ScoreBoard */,
-				07A697002E662AFD00B54F57 /* ScoreBoardTests */,
-				07A6970A2E662AFD00B54F57 /* ScoreBoardUITests */,
+				07A696F32E662AFB00B54F57 /* MyScoreBoard */,
+				07A697002E662AFD00B54F57 /* MyScoreBoardTests */,
+				07A6970A2E662AFD00B54F57 /* MyScoreBoardUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		07A697032E662AFD00B54F57 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 07A696F32E662AFB00B54F57 /* ScoreBoard */;
+			target = 07A696F32E662AFB00B54F57 /* MyScoreBoard */;
 			targetProxy = 07A697022E662AFD00B54F57 /* PBXContainerItemProxy */;
 		};
 		07A6970D2E662AFE00B54F57 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 07A696F32E662AFB00B54F57 /* ScoreBoard */;
+			target = 07A696F32E662AFB00B54F57 /* MyScoreBoard */;
 			targetProxy = 07A6970C2E662AFE00B54F57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -395,6 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 29XW64AGYN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -408,7 +409,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.Zeruesenay.Alula.ScoreBoard;
+				PRODUCT_BUNDLE_IDENTIFIER = me.Zeruesenay.Alula.MyScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -423,6 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 29XW64AGYN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -436,7 +438,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.Zeruesenay.Alula.ScoreBoard;
+				PRODUCT_BUNDLE_IDENTIFIER = me.Zeruesenay.Alula.MyScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -458,7 +460,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreBoard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ScoreBoard";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyScoreBoard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyScoreBoard";
 			};
 			name = Debug;
 		};
@@ -476,7 +478,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreBoard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ScoreBoard";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyScoreBoard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyScoreBoard";
 			};
 			name = Release;
 		};
@@ -515,7 +517,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07A696EF2E662AFB00B54F57 /* Build configuration list for PBXProject "ScoreBoard" */ = {
+		07A696EF2E662AFB00B54F57 /* Build configuration list for PBXProject "MyScoreBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07A697132E662AFE00B54F57 /* Debug */,
@@ -524,7 +526,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07A697152E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoard" */ = {
+		07A697152E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07A697162E662AFE00B54F57 /* Debug */,
@@ -533,7 +535,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07A697182E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoardTests" */ = {
+		07A697182E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoardTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07A697192E662AFE00B54F57 /* Debug */,
@@ -542,7 +544,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07A6971B2E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "ScoreBoardUITests" */ = {
+		07A6971B2E662AFE00B54F57 /* Build configuration list for PBXNativeTarget "MyScoreBoardUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07A6971C2E662AFE00B54F57 /* Debug */,
