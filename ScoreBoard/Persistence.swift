@@ -14,6 +14,7 @@ struct PersistenceController {
             game.teamB = "Team B\(i + 1)"
             game.scoreA = Int32(i * 10)
             game.scoreB = Int32(i * 50)
+            game.date = Date.now
         }
 
         do {

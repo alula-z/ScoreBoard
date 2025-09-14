@@ -6,8 +6,9 @@ import CoreData
 //  Created by Alula Zeruesenay on 9/3/25.
 //
 import SwiftUI
-
+import os
 struct History: View {
+    let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "History")
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [
@@ -24,11 +25,10 @@ struct History: View {
         do {
             try viewContext.save()
         } catch {
-            print("Error deleting game")
+            logger.error("Error deleting game \(error.localizedDescription)")
         }
     }
     var body: some View {
-        NavigationView {
             ZStack {
                 Color("BrandBackground")
                     .ignoresSafeArea()
@@ -44,45 +44,52 @@ struct History: View {
                                     .foregroundStyle(Color.gray)
                             } else {
                                 ForEach(games, id: \.self) { game in
-                                    HStack(alignment: .center) {
-                                        Text("\(game.teamA ?? "")")
+                                    VStack(alignment: .center){
+                                        HStack(alignment: .center) {
+                                            Text("\(game.teamA ?? "")")
+                                                .frame(maxWidth: .infinity, alignment:.leading)
                                             
-                                        Spacer()
-                                        HStack {
-                                            Text("\(game.scoreA)")
-                                                .foregroundStyle(
-                                                    game.scoreA > game.scoreB
+                                            HStack(spacing: 4) {
+                                                Text("\(game.scoreA)")
+                                                    .foregroundStyle(
+                                                        game.scoreA > game.scoreB
                                                         ? .green
                                                         : game.scoreA
-                                                            < game.scoreB
-                                                            ? .red : .white
-                                                )
-                                            Text(" - ")
-                                                .foregroundStyle(
-                                                    Color(
-                                                        red: 197,
-                                                        green: 199,
-                                                        blue: 197
+                                                        < game.scoreB
+                                                        ? .red : .white
                                                     )
-                                                )
-                                            Text("\(game.scoreB)")
-                                                .foregroundStyle(
-                                                    game.scoreB > game.scoreA
+                                                Text(" - ")
+                                                    .foregroundStyle(
+                                                        Color(.white)
+                                                    )
+                                                Text("\(game.scoreB)")
+                                                    .foregroundStyle(
+                                                        game.scoreB > game.scoreA
                                                         ? .green
                                                         : game.scoreB
-                                                            < game.scoreA
-                                                            ? .red : .white
-                                                )
+                                                        < game.scoreA
+                                                        ? .red : .white
+                                                    )
+                                            }
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal, 15)
+                                            .background(Color.black.opacity(0.7))
+                                            .clipShape(.capsule)
+                                            .minimumScaleFactor(0.5)
+                                            .lineLimit(1)
+                                            Text("\(game.teamB ?? "")")
+                                                .frame(maxWidth: .infinity,alignment:.trailing)
                                         }
-                                        .padding(8)
-                                        .padding(.horizontal, 10)
-                                        .frame( maxWidth: 130)
-                                        .background(Color.black.opacity(0.7))
-                                        .clipShape(.capsule)
-                                        Spacer()
-                                        Text("\(game.teamB ?? "")")
+                                        .padding(.horizontal, 5)
+                                        if let date = game.date {
+                                            Text(date.formatted(date: .abbreviated, time: .shortened))
+                                                .font(.caption)
+                                                .foregroundStyle(.black.opacity(0.6))
+                                                .padding(1)
+                                                
+                                        }
                                     }
-                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical,4)
                                 }
                                 .onDelete(perform: deleteGame)
 
@@ -95,7 +102,6 @@ struct History: View {
                 }
 
             }
-        }
     }
 }
 
