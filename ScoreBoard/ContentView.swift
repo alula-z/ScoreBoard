@@ -7,8 +7,9 @@
 
 import SwiftUI
 import CoreData
-
+import os
 struct ContentView: View {
+    let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "Game")
     @Environment(\.managedObjectContext) private var viewContext
     @State var scoreA = 0;
     @State var scoreB = 0;
@@ -29,23 +30,16 @@ struct ContentView: View {
         scoreB = 0
     }
     func saveGame(){
-        var currGame = Game(teamA: teamA, teamB: teamB, scoreA: scoreA, scoreB: scoreB, date: Date.now)
         let entity = GameEntity(context: viewContext)
-        if currGame.teamA == "" {
-            currGame.teamA = "Team A"
-        }
-        if currGame.teamB == "" {
-            currGame.teamB = "Team B"
-        }
-        entity.teamA = currGame.teamA
-        entity.teamB = currGame.teamB
-        entity.scoreA = Int32(currGame.scoreA)
-        entity.scoreB = Int32(currGame.scoreB)
+        entity.teamA = teamA.isEmpty ? "Team A" : teamA
+        entity.teamB = teamB.isEmpty ? "Team B" : teamB
+        entity.scoreA = Int32(scoreA)
+        entity.scoreB = Int32(scoreB)
+        entity.date = Date.now
         do{
             try viewContext.save()
-            print("Game saved Successfully")
         }catch{
-            print("Failed to save")
+            logger.error("Failed to save game: \(error.localizedDescription)")
         }
     }
     var body: some View {
