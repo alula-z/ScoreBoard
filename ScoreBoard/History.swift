@@ -28,6 +28,25 @@ struct History: View {
             logger.error("Error deleting game \(error.localizedDescription)")
         }
     }
+    private func deleteAllGames() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = GameEntity.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+        
+        do {
+            let result = try viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
+            if let objectIDs = result?.result as? [NSManagedObjectID] {
+                let changes: [AnyHashable: Any] = [
+                    NSDeletedObjectsKey: objectIDs
+                ]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [viewContext])
+            }
+            logger.log("✅ All games deleted")
+        } catch {
+            logger.error("❌ Failed to delete all games: \(error.localizedDescription)")
+        }
+    }
+    @State var showConfirm = false
     var body: some View {
             ZStack {
                 Color("BrandBackground")
@@ -39,70 +58,110 @@ struct History: View {
                             .fontWeight(.bold)
                             .padding()
                             .foregroundStyle(.black)
-                        List {
-                            if games.isEmpty {
-                                Text("No games saved")
-                                    .foregroundStyle(Color.gray)
-                                    .background(.white)
-                            } else {
-                                ForEach(games, id: \.self) { game in
-                                    VStack(alignment: .center){
-                                        HStack(alignment: .center) {
-                                            Text("\(game.teamA ?? "")")
-                                                .frame(maxWidth: .infinity, alignment:.leading)
-                                            
-                                            HStack(spacing: 4) {
-                                                Text("\(game.scoreA)")
-                                                    .foregroundStyle(
-                                                        game.scoreA > game.scoreB
-                                                        ? .green
-                                                        : game.scoreA
-                                                        < game.scoreB
-                                                        ? .red : .white
-                                                    )
-                                                Text(" - ")
-                                                    .foregroundStyle(
-                                                        Color(.white)
-                                                    )
-                                                Text("\(game.scoreB)")
-                                                    .foregroundStyle(
-                                                        game.scoreB > game.scoreA
-                                                        ? .green
-                                                        : game.scoreB
-                                                        < game.scoreA
-                                                        ? .red : .white
-                                                    )
+                        VStack(spacing: 0){
+                            List {
+                                if games.isEmpty {
+                                    Text("No games saved")
+                                        .foregroundStyle(Color.gray)
+                                        .background(.white)
+                                } else {
+                                    ForEach(games, id: \.self) { game in
+                                        VStack(alignment: .center){
+                                            HStack{
+                                                Spacer()
+                                                Menu{
+                                                    Button("Delete", role:.destructive){
+                                                        viewContext.delete(game)
+                                                        try? viewContext.save()
+                                                    }
+                                                }label: {
+                                                    Image(systemName: "ellipsis")
+                                                        .foregroundStyle(.gray)
+                                                        .imageScale(.large)
+                                                }
                                             }
-                                            .padding(.vertical,8)
-                                            .padding(.horizontal, 15)
-                                            .background(Color.black.opacity(0.7))
-                                            .clipShape(.capsule)
-                                            .minimumScaleFactor(0.5)
-                                            .lineLimit(1)
-                                            Text("\(game.teamB ?? "")")
-                                                .frame(maxWidth: .infinity,alignment:.trailing)
-                                        }
-                                        .padding(.horizontal, 5)
-                                        if let date = game.date {
-                                            Text(date.formatted(date: .abbreviated, time: .shortened))
-                                                .font(.caption)
-                                                .foregroundStyle(.black.opacity(0.6))
-                                                
-                                        }
-                                    }
-                                    .background(.white)
-                                    .padding(.vertical,3)
-                                }
-                                .onDelete(perform: deleteGame)
 
+                                            HStack(alignment: .center) {
+                                                Text("\(game.teamA ?? "")")
+                                                    .frame(maxWidth: .infinity, alignment:.leading)
+                                                
+                                                HStack(spacing: 4) {
+                                                    Text("\(game.scoreA)")
+                                                        .foregroundStyle(
+                                                            game.scoreA > game.scoreB
+                                                            ? .green
+                                                            : game.scoreA
+                                                            < game.scoreB
+                                                            ? .red : .white
+                                                        )
+                                                    Text(" - ")
+                                                        .foregroundStyle(
+                                                            Color(.white)
+                                                        )
+                                                    Text("\(game.scoreB)")
+                                                        .foregroundStyle(
+                                                            game.scoreB > game.scoreA
+                                                            ? .green
+                                                            : game.scoreB
+                                                            < game.scoreA
+                                                            ? .red : .white
+                                                        )
+                                                }
+                                                .padding(.vertical,8)
+                                                .padding(.horizontal, 15)
+                                                .background(Color.black.opacity(0.7))
+                                                .clipShape(.capsule)
+                                                .minimumScaleFactor(0.5)
+                                                .lineLimit(1)
+                                                Text("\(game.teamB ?? "")")
+                                                    .frame(maxWidth: .infinity,alignment:.trailing)
+                                                
+                                                
+                                            }
+                                            .padding(.horizontal, 5)
+                                            if let date = game.date {
+                                                Text(date.formatted(date: .abbreviated, time: .shortened))
+                                                    .font(.caption)
+                                                    .foregroundStyle(.black.opacity(0.6))
+                                                
+                                            }
+                                        }
+                                        .background(.white)
+                                        .padding(.vertical,3)
+                                    }
+                                    
+                                }
                             }
-                        }
-                        .scrollContentBackground(.hidden)
-                        Spacer()
+                            .scrollContentBackground(.hidden)
+                            Button(role: .destructive){
+                                showConfirm = true
+                            }label:{
+                                Text("Clear All History")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.red.opacity(0.8))
+                                    .foregroundStyle(.white)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal,20)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .alert("Clear All History", isPresented: $showConfirm) {
+                                Button("DeleteAll", role: .destructive){
+                                    deleteAllGames()
+                                }
+                                Button("Cancel", role: .cancel){}
+                            }message: {
+                                Text("This will permanently delete all saved games.")
+                            }
+                            Spacer()
                     }
 
                 }
 
+            }
+            
             }
     }
 }

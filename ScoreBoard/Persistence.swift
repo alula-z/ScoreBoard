@@ -8,7 +8,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         
         // Add sample games for preview
-        for i in 0..<3 {
+        for i in 0..<15 {
             let game = GameEntity(context: viewContext)
             game.teamA = "Los Angeles Lakers\(i + 1)"
             game.teamB = "Team B\(i + 1)"
