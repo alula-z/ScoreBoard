@@ -145,6 +145,7 @@ struct History: View {
                                     .cornerRadius(10)
                                     .padding(.horizontal,20)
                             }
+
                             .padding(.horizontal)
                             .padding(.vertical, 5)
                             .alert("Clear All History", isPresented: $showConfirm) {
