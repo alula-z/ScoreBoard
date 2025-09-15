@@ -38,10 +38,12 @@ struct History: View {
                             .font(.system(size: 30))
                             .fontWeight(.bold)
                             .padding()
+                            .foregroundStyle(.black)
                         List {
                             if games.isEmpty {
                                 Text("No games saved")
                                     .foregroundStyle(Color.gray)
+                                    .background(.white)
                             } else {
                                 ForEach(games, id: \.self) { game in
                                     VStack(alignment: .center){
@@ -88,6 +90,7 @@ struct History: View {
                                                 
                                         }
                                     }
+                                    .background(.white)
                                     .padding(.vertical,3)
                                 }
                                 .onDelete(perform: deleteGame)

@@ -50,9 +50,9 @@ struct ContentView: View {
                 VStack{
                     Text("ScoreBoard")
                         .font(.system(size: 50))
-                        .underline(true,color: Color.black)
                         .fontWeight(.bold)
                         .frame(alignment: .top)
+                        .foregroundStyle(.black)
                     Spacer()
                     VStack(spacing: 20){
                         HStack{

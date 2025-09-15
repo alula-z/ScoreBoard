@@ -32,7 +32,7 @@ struct landingPage: View {
                         .fontWeight(.bold)
                     Spacer()
                     //Buttons
-                    VStack(spacing: 40){
+                    VStack(spacing: 20){
                         //Start new game
                         Button(action: {
                             selectedTab = 0
@@ -42,7 +42,7 @@ struct landingPage: View {
                                 .fontWeight(.bold)
                         }
                         .padding()
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 10)
                         .frame(maxWidth: 250)
                         .background(Color.blue)
                         .foregroundStyle(.white)
@@ -58,7 +58,7 @@ struct landingPage: View {
                         }
                         .foregroundStyle(.blue)
                         .padding()
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 10)
                         .frame(maxWidth: 250)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
