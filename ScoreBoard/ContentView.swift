@@ -65,6 +65,7 @@ struct ContentView: View {
                                 Text("\(String(scoreA))")
                                     .frame(width: 120,height: 150)
                                     .padding()
+                                    .padding(.vertical, 10)
                                     .font(.system(size: 60))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 30)
@@ -89,6 +90,7 @@ struct ContentView: View {
                                 Text("\(String(scoreB))")
                                     .frame(width: 120,height: 150)
                                     .padding()
+                                    .padding(.vertical, 10)
                                     .font(.system(size: 60))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 30)
@@ -199,6 +201,7 @@ struct ContentView: View {
                         
                     }
                     .padding()
+                    .padding(.vertical, 15)
                     .frame(maxWidth:.infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
