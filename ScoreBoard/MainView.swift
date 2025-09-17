@@ -27,7 +27,7 @@ struct MainView: View {
                 }
                 .tag(1)
         }
-        .tint(Color(.secondary))
+        .tint(Color(.brandSecondary))
         
         
     }
