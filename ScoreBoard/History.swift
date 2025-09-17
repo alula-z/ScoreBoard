@@ -64,6 +64,7 @@ struct History: View {
                                     Text("No games saved")
                                         .foregroundStyle(Color.gray)
                                         .background(.white)
+                                        .listRowBackground(Color.white)
                                 } else {
                                     ForEach(games, id: \.self) { game in
                                         VStack(alignment: .center){
@@ -161,7 +162,7 @@ struct History: View {
                             .padding(.horizontal)
                             .padding(.vertical, 5)
                             .alert("Clear All History", isPresented: $showConfirm) {
-                                Button("DeleteAll", role: .destructive){
+                                Button("Clear All", role: .destructive){
                                     deleteAllGames()
                                 }
                                 Button("Cancel", role: .cancel){}
@@ -187,5 +188,5 @@ struct History: View {
             \.managedObjectContext,
             PersistenceController.preview.container.viewContext
         )
-        .preferredColorScheme(.light)
+        .preferredColorScheme(.dark)
 }
