@@ -44,7 +44,7 @@ struct landingPage: View {
                         .padding()
                         .padding(.vertical, 10)
                         .frame(maxWidth: 250)
-                        .background(Color.blue)
+                        .background(Color(.secondary))
                         .foregroundStyle(.white)
                         .cornerRadius(15)
                         
@@ -56,13 +56,13 @@ struct landingPage: View {
                             Text("View History")
                                 .fontWeight(.bold)
                         }
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.black)
                         .padding()
                         .padding(.vertical, 10)
                         .frame(maxWidth: 250)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.blue, lineWidth:4)
+                                .stroke(Color(.secondary), lineWidth:4)
                         )
                     }
                     Spacer()
