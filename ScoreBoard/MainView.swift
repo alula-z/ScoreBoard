@@ -11,7 +11,7 @@ struct MainView: View {
     @Binding var selectTab: Int
     init(selectTab: Binding<Int>){
         self._selectTab = selectTab
-        UITabBar.appearance().unselectedItemTintColor = .black
+        UITabBar.appearance().unselectedItemTintColor = .white
     }
     var body: some View{
         TabView(selection: $selectTab){
@@ -27,7 +27,7 @@ struct MainView: View {
                 }
                 .tag(1)
         }
-        .tint(Color.blue)
+        .tint(Color.black)
         
     }
 }
