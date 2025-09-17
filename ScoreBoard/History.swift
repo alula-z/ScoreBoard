@@ -84,6 +84,8 @@ struct History: View {
                                             HStack(alignment: .center) {
                                                 Text("\(game.teamA ?? "")")
                                                     .frame(maxWidth: .infinity, alignment:.leading)
+                                                    .font(.body)
+                                                    .foregroundStyle(.black)
                                                 
                                                 HStack(spacing: 4) {
                                                     Text("\(game.scoreA)")
@@ -94,6 +96,9 @@ struct History: View {
                                                             < game.scoreB
                                                             ? .red : .white
                                                         )
+                                                        .lineLimit(1)
+                                                        .font(.headline)
+                                                    
                                                     Text(" - ")
                                                         .foregroundStyle(
                                                             Color(.white)
@@ -106,16 +111,19 @@ struct History: View {
                                                             < game.scoreA
                                                             ? .red : .white
                                                         )
+                                                        .lineLimit(1)
+                                                        .font(.headline)
                                                 }
-                                                .padding(.vertical,8)
-                                                .padding(.horizontal, 15)
-                                                .background(Color.black.opacity(0.7))
+                                                .padding(8)
+                                                .padding(.horizontal, 10)
+                                                .background(Color.black)
                                                 .clipShape(.capsule)
-                                                .minimumScaleFactor(0.5)
-                                                .lineLimit(1)
+                                                .fixedSize(horizontal: true, vertical: false)
+                                                
                                                 Text("\(game.teamB ?? "")")
                                                     .frame(maxWidth: .infinity,alignment:.trailing)
-                                                
+                                                    .font(.body)
+                                                    .foregroundStyle(.black)
                                                 
                                             }
                                             .padding(.horizontal, 5)
@@ -126,13 +134,17 @@ struct History: View {
                                                 
                                             }
                                         }
-                                        .background(.white)
+                                        .listRowBackground(Color.white)
                                         .padding(.vertical,3)
                                     }
                                     
+                                    
                                 }
                             }
+                            .background(.clear)
                             .scrollContentBackground(.hidden)
+                            
+                            
                             Button(role: .destructive){
                                 showConfirm = true
                             }label:{
@@ -157,7 +169,9 @@ struct History: View {
                                 Text("This will permanently delete all saved games.")
                             }
                             Spacer()
+                            
                     }
+                        Spacer()
 
                 }
 
@@ -173,4 +187,5 @@ struct History: View {
             \.managedObjectContext,
             PersistenceController.preview.container.viewContext
         )
+        .preferredColorScheme(.light)
 }
