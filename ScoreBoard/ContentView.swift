@@ -18,6 +18,16 @@ struct ContentView: View {
     @State var resetAlert = false;
     @State var resetMessage = "";
     @State var plusBool = true;
+    @State var gameFinished = false;
+    var result : String {
+        if scoreA > scoreB {
+            return "Winning Team: \(teamA)"
+        }else if scoreA < scoreB {
+            return "Winning Team: \(teamB)"
+        } else {
+            return "Draw"
+        }
+    }
     struct Game{
         var teamA:String
         var teamB:String
@@ -40,6 +50,7 @@ struct ContentView: View {
         entity.date = Date.now
         do{
             try viewContext.save()
+            gameFinished = true
         }catch{
             logger.error("Failed to save game: \(error.localizedDescription)")
         }
@@ -236,7 +247,6 @@ struct ContentView: View {
                         }
                         Button(action:{
                             saveGame()
-                            resetScore()
                         }){
                             Text("Finish game")
                                 .padding()
@@ -271,7 +281,21 @@ struct ContentView: View {
                     Text("Are you sure you want to reset?")
                 }
             }
-            
+            .alert("Game Saved", isPresented: $gameFinished){
+                Button("Confirm"){
+                    gameFinished = false
+                    resetScore()
+                }
+                .tint(.blue)
+            }message:{
+                Text("""
+                    Teams: \(teamA) vs \(teamB)
+                    Final Score: \(scoreA) - \(scoreB)
+                    \(result)
+
+                    Navigate to history to see all saved games
+                    """)
+                }
         }
     }
 }
