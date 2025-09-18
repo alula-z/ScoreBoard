@@ -70,9 +70,11 @@ struct ContentView: View {
                 VStack(spacing: 20){
                     HStack(spacing: 10){
                         VStack(spacing: 20){
-                            TextField(text: $teamA, label: { Text("Team A...") })
+                            TextField(text: $teamA, label: { Text("Team A...")
+                                    .foregroundStyle(Color.black.opacity(0.5))
+                            })
                                 .font(.title2)
-                                .padding(.vertical, 5)
+                                .padding(.vertical, 10)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
                                 .foregroundStyle(Color.brandSecondary)
@@ -98,9 +100,10 @@ struct ContentView: View {
                         VStack(spacing: 20){
                             TextField(text: $teamB, label: {
                                 Text("Team B...")
+                                    .foregroundStyle(Color.black.opacity(0.5))
                             })
                             .font(.title2)
-                            .padding(.vertical, 5)
+                            .padding(.vertical, 10)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
@@ -310,5 +313,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .preferredColorScheme(.dark)
     }
 }
