@@ -298,7 +298,7 @@ struct ContentView: View {
                 .tint(.blue)
             }message:{
                 Text("""
-                    Teams: \(teamA) vs \(teamB)
+                    Teams: \(teamA.isEmpty ? "Team A" : teamA) vs \(teamB.isEmpty ? "Team B" : teamB)
                     Final Score: \(scoreA) - \(scoreB)
                     \(result)
 
