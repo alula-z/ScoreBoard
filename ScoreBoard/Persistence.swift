@@ -2,7 +2,7 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
@@ -16,7 +16,7 @@ struct PersistenceController {
             game.scoreB = Int32(i * 50)
             game.date = Date.now
         }
-
+        
         do {
             try viewContext.save()
             print("✅ Preview data saved successfully")
@@ -26,9 +26,9 @@ struct PersistenceController {
         
         return result
     }()
-
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         print("🔄 Initializing PersistenceController with model name: 'ScoreBoard'")
         

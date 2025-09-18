@@ -14,7 +14,7 @@ struct ScoreBoardApp: App {
         WindowGroup {
             landingPage()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                
+            
         }
     }
 }
