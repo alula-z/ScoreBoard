@@ -28,6 +28,8 @@ struct ContentView: View {
     func resetScore(){
         scoreA = 0
         scoreB = 0
+        teamA = "Team A"
+        teamB = "Team B"
     }
     func saveGame(){
         let entity = GameEntity(context: viewContext)
