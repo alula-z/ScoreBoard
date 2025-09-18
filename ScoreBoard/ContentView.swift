@@ -56,7 +56,6 @@ struct ContentView: View {
         }
     }
     var body: some View {
-        NavigationView{
             ZStack{
                 Color("BrandBackground")
                     .ignoresSafeArea()
@@ -75,6 +74,7 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.center)
                                     .foregroundStyle(Color.yellow.opacity(0.9))
+                                
                                 Text("\(String(scoreA))")
                                     .frame(width: 120,height: 150)
                                     .padding()
@@ -297,7 +297,6 @@ struct ContentView: View {
                     """)
                 }
         }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
