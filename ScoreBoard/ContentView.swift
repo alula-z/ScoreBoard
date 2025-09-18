@@ -13,8 +13,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State var scoreA = 0;
     @State var scoreB = 0;
-    @State var teamA = "Team A";
-    @State var teamB = "Team B";
+    @State var teamA = "";
+    @State var teamB = "";
     @State var resetAlert = false;
     @State var resetMessage = "";
     @State var plusBool = true;
@@ -38,8 +38,8 @@ struct ContentView: View {
     func resetScore(){
         scoreA = 0
         scoreB = 0
-        teamA = "Team A"
-        teamB = "Team B"
+        teamA = ""
+        teamB = ""
     }
     func saveGame(){
         let entity = GameEntity(context: viewContext)
@@ -66,40 +66,49 @@ struct ContentView: View {
                         .frame(alignment: .top)
                         .foregroundStyle(.black)
                     Spacer()
+                   
                     VStack(spacing: 20){
-                        HStack{
-                            VStack{
-                                TextField(text: $teamA, label: { Text("Team A") })
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.center)
-                                    .foregroundStyle(Color.yellow.opacity(0.9))
-                                
-                                Text("\(String(scoreA))")
-                                    .frame(width: 120,height: 150)
-                                    .padding()
-                                    .padding(.vertical, 10)
-                                    .font(.system(size: 60))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .stroke(Color.black, lineWidth:2)
-                                    )
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .fill(Color.white.opacity(0.2))
-                                    )
-                                    .foregroundStyle(Color.orange)
-                            }
+                        HStack(spacing: 10){
+                                VStack{
+                                    VStack(spacing: 15){
+                                        TextField(text: $teamA, label: { Text("Team A...") })
+                                            .font(.title2)
+                                            .padding(.vertical, 5)
+                                            .fontWeight(.bold)
+                                            .multilineTextAlignment(.center)
+                                            .foregroundStyle(Color.brandSecondary)
+                                            .background(Color.brandBackground)
+                                            .cornerRadius(10)
+                                        
+                                        Text("\(String(scoreA))")
+                                            .frame(width: 120,height: 150)
+                                            .padding()
+                                            .padding(.vertical, 10)
+                                            .font(.system(size: 60))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 30)
+                                                    .stroke(Color.black, lineWidth:2)
+                                            )
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 30)
+                                                    .fill(Color.white.opacity(0.2))
+                                            )
+                                            .foregroundStyle(Color.orange)
+                                    }
+                                }
                             Spacer()
-                            VStack{
+                            VStack(spacing: 15){
                                 TextField(text: $teamB, label: {
-                                    Text("Team B")
+                                    Text("Team B...")
                                 })
-                                .font(.title)
+                                .font(.title2)
+                                .padding(.vertical, 5)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
-                                .foregroundStyle(Color.yellow.opacity(0.9))
+                                .foregroundStyle(Color.brandSecondary)
+                                .background(.brandBackground)
+                                .cornerRadius(10)
                                 Text("\(String(scoreB))")
                                     .frame(width: 120,height: 150)
                                     .padding()
