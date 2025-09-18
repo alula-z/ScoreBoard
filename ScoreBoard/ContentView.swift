@@ -70,7 +70,7 @@ struct ContentView: View {
                     VStack(spacing: 20){
                         HStack(spacing: 10){
                                 VStack{
-                                    VStack(spacing: 15){
+                                    VStack(spacing: 20){
                                         TextField(text: $teamA, label: { Text("Team A...") })
                                             .font(.title2)
                                             .padding(.vertical, 5)
@@ -97,7 +97,7 @@ struct ContentView: View {
                                     }
                                 }
                             Spacer()
-                            VStack(spacing: 15){
+                            VStack(spacing: 20){
                                 TextField(text: $teamB, label: {
                                     Text("Team B...")
                                 })
