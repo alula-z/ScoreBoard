@@ -21,9 +21,9 @@ struct ContentView: View {
     @State var gameFinished = false;
     var result : String {
         if scoreA > scoreB {
-            return "Winning Team: \(teamA)"
+            return "Winning Team: \(teamA.isEmpty ? "Team A" : teamA)"
         }else if scoreA < scoreB {
-            return "Winning Team: \(teamB)"
+            return "Winning Team: \(teamB.isEmpty ? "Team B" : teamB)"
         } else {
             return "Draw"
         }
@@ -239,7 +239,6 @@ struct ContentView: View {
                 
                 HStack{
                     Button(action:{
-                        print("Reset clicked")
                         resetAlert = true
                     }){
                         Text("Reset")
@@ -276,36 +275,31 @@ struct ContentView: View {
             .padding()
             .frame(maxHeight:.infinity)
             .alert("Reset Score",isPresented: $resetAlert) {
-                Button(action:{
+                Button("Reset", role: .destructive){
                     resetScore()
-                }){
-                    Text("Reset")
-                        .foregroundStyle(Color.red)
                 }
-                Button(action:{
-                    
-                }){
-                    Text("Cancel")
-                }
+                Button("Cancel", role: .cancel){}
+                
             }message: {
                 Text("Are you sure you want to reset?")
             }
+            .tint(Color("AccentColor"))
         }
         .alert("Game Saved", isPresented: $gameFinished){
             Button("Confirm"){
                 gameFinished = false
                 resetScore()
             }
-            .tint(.blue)
         }message:{
             Text("""
-                    Teams: \(teamA.isEmpty ? "Team A" : teamA) vs \(teamB.isEmpty ? "Team B" : teamB)
-                    Final Score: \(scoreA) - \(scoreB)
+                    \(teamA.isEmpty ? "Team A" : teamA) vs \(teamB.isEmpty ? "Team B" : teamB)
+                    \(scoreA) - \(scoreB) \n
                     \(result)
                     
                     Navigate to history to see all saved games
                     """)
         }
+        .tint(Color("AccentColor"))
     }
 }
 

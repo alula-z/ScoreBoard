@@ -165,10 +165,11 @@ struct History: View {
                             Button("Clear All", role: .destructive){
                                 deleteAllGames()
                             }
-                            Button("Cancel", role: .cancel){}
+                            Button("Cancel", role:.cancel){}
                         }message: {
                             Text("This will permanently delete all saved games.")
                         }
+                        .tint(Color("AccentColor"))
                         Spacer()
                         
                     }
