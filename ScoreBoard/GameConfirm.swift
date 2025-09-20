@@ -19,7 +19,7 @@ struct gameConfirm: View {
         VStack(spacing: 20){
             Text("Game Saved")
                 .font(.headline)
-            VStack{
+            VStack(spacing: 10){
                 Text("\(teamA) vs \(teamB)")
                     .font(.subheadline)
                 

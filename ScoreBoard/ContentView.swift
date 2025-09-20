@@ -42,6 +42,7 @@ struct ContentView: View {
         teamB = ""
     }
     func saveGame(){
+        print("Save game tapped")
         let entity = GameEntity(context: viewContext)
         entity.teamA = teamA.isEmpty ? "Team A" : teamA
         entity.teamB = teamB.isEmpty ? "Team B" : teamB
@@ -50,8 +51,10 @@ struct ContentView: View {
         entity.date = Date.now
         do{
             try viewContext.save()
+            print("Game saved")
             gameFinished = true
         }catch{
+            print("Button tapped")
             logger.error("Failed to save game: \(error.localizedDescription)")
         }
     }
@@ -284,22 +287,29 @@ struct ContentView: View {
                 Text("Are you sure you want to reset?")
             }
             .tint(Color("AccentColor"))
-        }
-        .alert("Game Saved", isPresented: $gameFinished){
-            Button("Confirm"){
-                gameFinished = false
-                resetScore()
+            
+            if gameFinished == true {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        resetScore()
+                        gameFinished = false
+                    }
+                
+                gameConfirm(
+                    teamA: teamA.isEmpty ? "Team A" : teamA,
+                    teamB: teamB.isEmpty ? "Team B" : teamB,
+                    scoreA: scoreA,
+                    scoreB: scoreB,
+                    result: result,
+                    onConfirm:{
+                        resetScore()
+                        gameFinished = false
+                    }
+                )
             }
-        }message:{
-            Text("""
-                    \(teamA.isEmpty ? "Team A" : teamA) vs \(teamB.isEmpty ? "Team B" : teamB)
-                    \(scoreA) - \(scoreB) \n
-                    \(result)
-                    
-                    Navigate to history to see all saved games
-                    """)
         }
-        .tint(Color("AccentColor"))
+        
     }
 }
 

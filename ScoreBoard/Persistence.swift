@@ -19,9 +19,9 @@ struct PersistenceController {
         
         do {
             try viewContext.save()
-            print("✅ Preview data saved successfully")
+            
         } catch {
-            print("❌ Failed to save preview data: \(error)")
+            
         }
         
         return result
@@ -30,27 +30,25 @@ struct PersistenceController {
     let container: NSPersistentContainer
     
     init(inMemory: Bool = false) {
-        print("🔄 Initializing PersistenceController with model name: 'ScoreBoard'")
+    
         
         container = NSPersistentContainer(name: "ScoreBoard") // This matches your ScoreBoard.xcdatamodeld
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-            print("📝 Using in-memory store for preview")
+            
         }
         
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
-                print("❌ Core Data failed to load: \(error)")
-                print("❌ Error details: \(error.userInfo)")
+               
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             } else {
-                print("✅ Core Data loaded successfully")
-                print("📍 Store location: \(storeDescription.url?.absoluteString ?? "Unknown")")
+                
             }
         }
         
         container.viewContext.automaticallyMergesChangesFromParent = true
-        print("✅ PersistenceController initialized")
+        
     }
 }
