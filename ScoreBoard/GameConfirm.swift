@@ -37,11 +37,11 @@ struct gameConfirm: View {
             Button(action: {onConfirm()}, label: {
                 Text("OK")
                     .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
                     .font(.headline)
                     .fontWeight(.bold)
             })
                 .padding()
-                .frame(maxWidth: .infinity)
                 .background(Color.brandSecondary)
                 .clipShape(.capsule)
                 
