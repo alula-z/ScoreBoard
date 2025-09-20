@@ -16,18 +16,25 @@ struct gameConfirm: View {
     var onConfirm: () -> Void
     
     var body: some View {
-        VStack(spacing: 20){
+        VStack(spacing: 25){
             Text("Game Saved")
-                .font(.headline)
+                .font(.title2)
+                .padding(5)
+                .fontWeight(.bold)
+                .overlay(Rectangle()
+                    .frame(height:2)
+                    .offset(y:3)
+                         ,alignment: .bottom)
+            
             VStack(spacing: 10){
-                Text("\(teamA) vs \(teamB)")
-                    .font(.subheadline)
+                Text("\(teamA)   vs   \(teamB)")
+                    .font(.headline)
                 
                 Text("\(scoreA) - \(scoreB)")
-                    .font(.subheadline)
+                    .font(.headline)
                 
                 Text(result)
-                    .font(.subheadline)
+                    .font(.headline)
             }
             
                 Text("Navigate to History to see all saved games")
