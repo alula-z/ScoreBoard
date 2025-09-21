@@ -11,14 +11,16 @@ import os
 struct ContentView: View {
     let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "Game")
     @Environment(\.managedObjectContext) private var viewContext
-    @State var scoreA = 0;
-    @State var scoreB = 0;
-    @State var teamA = "";
-    @State var teamB = "";
-    @State var resetAlert = false;
-    @State var resetMessage = "";
-    @State var plusBool = true;
-    @State var gameFinished = false;
+    
+    @State var scoreA = 0
+    @State var scoreB = 0
+    @State var teamA = ""
+    @State var teamB = ""
+    @State var resetAlert = false
+    @State var resetMessage = ""
+    @State var plusBool = true
+    @State var gameFinished = false
+    
     var result : String {
         if scoreA > scoreB {
             return "Winning Team: \(teamA.isEmpty ? "Team A" : teamA)"
@@ -58,6 +60,7 @@ struct ContentView: View {
             logger.error("Failed to save game: \(error.localizedDescription)")
         }
     }
+    
     var body: some View {
         ZStack{
             Color("BrandBackground")
