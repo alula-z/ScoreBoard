@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import os
+
 struct ContentView: View {
     let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "Game")
     @Environment(\.managedObjectContext) private var viewContext
@@ -20,6 +21,8 @@ struct ContentView: View {
     @State var resetMessage = ""
     @State var plusBool = true
     @State var gameFinished = false
+    @State private var scaleA: CGFloat = 1.0
+    @State private var scaleB: CGFloat = 1.0
     
     var result : String {
         if scoreA > scoreB {
@@ -87,20 +90,30 @@ struct ContentView: View {
                                 .background(Color.brandBackground)
                                 .cornerRadius(10)
                             
-                            Text("\(String(scoreA))")
-                                .frame(width: 120,height: 150)
-                                .padding()
-                                .padding(.vertical, 10)
-                                .font(.system(size: 60))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color.black, lineWidth:2)
-                                )
-                                .background(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .fill(Color.white.opacity(0.2))
-                                )
-                                .foregroundStyle(Color.orange)
+                            ZStack {
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke(Color.black, lineWidth: 2)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 30)
+                                                        .fill(Color.white.opacity(0.2))
+                                                )
+                                Text("\(scoreA)")
+                                    .frame(maxWidth: .infinity)
+                                                .font(.system(size: 60))
+                                                .foregroundStyle(Color.orange)
+                                                .scaleEffect(scaleA)
+                                                .onChange(of: scoreA) { _, _ in
+                                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                                                        scaleA = 1.3
+                                                    }
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                                            scaleA = 1.0
+                                                        }
+                                                    }
+                                                }
+                                        }
+                                        .frame(width: 160, height: 200)
                         }
                         Spacer()
                         VStack(spacing: 20){
@@ -116,20 +129,30 @@ struct ContentView: View {
                             .foregroundStyle(Color.brandSecondary)
                             .background(.brandBackground)
                             .cornerRadius(10)
-                            Text("\(String(scoreB))")
-                                .frame(width: 120,height: 150)
-                                .padding()
-                                .padding(.vertical, 10)
-                                .font(.system(size: 60))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color.black, lineWidth:2)
-                                )
-                                .background(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .fill(Color.white.opacity(0.2))
-                                )
-                                .foregroundStyle(Color.orange)
+                            ZStack {
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke(Color.black, lineWidth: 2)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 30)
+                                                        .fill(Color.white.opacity(0.2))
+                                                )
+                                Text("\(scoreB)")
+                                    .frame(maxWidth: .infinity)
+                                                .font(.system(size: 60))
+                                                .foregroundStyle(Color.orange)
+                                                .scaleEffect(scaleB)
+                                                .onChange(of: scoreB) { _, _ in
+                                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                                                        scaleB = 1.3
+                                                    }
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                                            scaleB = 1.0
+                                                        }
+                                                    }
+                                                }
+                                        }
+                                        .frame(width: 160, height: 200)
                         }
                         
                     }
