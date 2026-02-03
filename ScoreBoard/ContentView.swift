@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  ScoreBoard
+//  scoreBoard
 //
 //  Created by Alula Zeruesenay on 9/1/25.
 //
@@ -10,114 +10,68 @@ import CoreData
 import os
 
 struct ContentView: View {
-    let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "Game")
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @State var scoreA = 0
-    @State var scoreB = 0
-    @State var teamA = ""
-    @State var teamB = ""
-    @State var resetAlert = false
-    @State var resetMessage = ""
-    @State var plusBool = true
-    @State var gameFinished = false
+    @StateObject private var vm : ContentViewModel
     @State private var scaleA: CGFloat = 1.0
     @State private var scaleB: CGFloat = 1.0
     
-    var result : String {
-        if scoreA > scoreB {
-            return "Winning Team: \(teamA.isEmpty ? "Team A" : teamA)"
-        }else if scoreA < scoreB {
-            return "Winning Team: \(teamB.isEmpty ? "Team B" : teamB)"
-        } else {
-            return "Draw"
-        }
+    init(context: NSManagedObjectContext) {
+        _vm = StateObject(wrappedValue: ContentViewModel(context: context))
     }
-    struct Game{
-        var teamA:String
-        var teamB:String
-        let scoreA:Int
-        let scoreB: Int
-        let date: Date
-    }
-    func resetScore(){
-        scoreA = 0
-        scoreB = 0
-        teamA = ""
-        teamB = ""
-    }
-    func saveGame(){
-        print("Save game tapped")
-        let entity = GameEntity(context: viewContext)
-        entity.teamA = teamA.isEmpty ? "Team A" : teamA
-        entity.teamB = teamB.isEmpty ? "Team B" : teamB
-        entity.scoreA = Int32(scoreA)
-        entity.scoreB = Int32(scoreB)
-        entity.date = Date.now
-        do{
-            try viewContext.save()
-            print("Game saved")
-            gameFinished = true
-        }catch{
-            print("Button tapped")
-            logger.error("Failed to save game: \(error.localizedDescription)")
-        }
-    }
+    
     
     var body: some View {
         ZStack{
             Color("BrandBackground")
                 .ignoresSafeArea()
             VStack{
-                Text("ScoreBoard")
+                Text("scoreBoard")
                     .font(.system(size: 50))
                     .fontWeight(.bold)
                     .frame(alignment: .top)
                     .foregroundStyle(.black)
                 Spacer()
-                
                 VStack(spacing: 20){
                     HStack(spacing: 10){
                         VStack(spacing: 20){
-                            TextField(text: $teamA, label: { Text("Team A...")
+                            TextField(text: $vm.teamA, label: { Text("Team A...")
                                     .foregroundStyle(Color.black.opacity(0.5))
                             })
-                                .font(.title2)
-                                .padding(.vertical, 10)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .foregroundStyle(Color.brandSecondary)
-                                .background(Color.brandBackground)
-                                .cornerRadius(10)
+                            .font(.title2)
+                            .padding(.vertical, 10)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Color.brandSecondary)
+                            .background(Color.brandBackground)
+                            .cornerRadius(10)
                             
                             ZStack {
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .stroke(Color.black, lineWidth: 2)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 30)
-                                                        .fill(Color.white.opacity(0.2))
-                                                )
-                                Text("\(scoreA)")
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.black, lineWidth: 2)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .fill(Color.white.opacity(0.2))
+                                    )
+                                Text("\(vm.scoreA)")
                                     .frame(maxWidth: .infinity)
-                                                .font(.system(size: 60))
-                                                .foregroundStyle(Color.orange)
-                                                .scaleEffect(scaleA)
-                                                .onChange(of: scoreA) { _, _ in
-                                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
-                                                        scaleA = 1.3
-                                                    }
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                                                            scaleA = 1.0
-                                                        }
-                                                    }
-                                                }
+                                    .font(.system(size: 60))
+                                    .foregroundStyle(Color.orange)
+                                    .scaleEffect(scaleA)
+                                    .onChange(of: vm.scoreA) { _, _ in
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                                            scaleA = 1.3
                                         }
-                                        .frame(width: 160, height: 200)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                                scaleA = 1.0
+                                            }
+                                        }
+                                    }
+                            }
+                            .frame(width: 160, height: 200)
                         }
                         Spacer()
                         VStack(spacing: 20){
-                            TextField(text: $teamB, label: {
+                            TextField(text: $vm.teamB, label: {
                                 Text("Team B...")
                                     .foregroundStyle(Color.black.opacity(0.5))
                             })
@@ -130,35 +84,35 @@ struct ContentView: View {
                             .background(.brandBackground)
                             .cornerRadius(10)
                             ZStack {
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .stroke(Color.black, lineWidth: 2)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 30)
-                                                        .fill(Color.white.opacity(0.2))
-                                                )
-                                Text("\(scoreB)")
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.black, lineWidth: 2)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .fill(Color.white.opacity(0.2))
+                                    )
+                                Text("\(vm.scoreB)")
                                     .frame(maxWidth: .infinity)
-                                                .font(.system(size: 60))
-                                                .foregroundStyle(Color.orange)
-                                                .scaleEffect(scaleB)
-                                                .onChange(of: scoreB) { _, _ in
-                                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
-                                                        scaleB = 1.3
-                                                    }
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                                                            scaleB = 1.0
-                                                        }
-                                                    }
-                                                }
+                                    .font(.system(size: 60))
+                                    .foregroundStyle(Color.orange)
+                                    .scaleEffect(scaleB)
+                                    .onChange(of: vm.scoreB) { _, _ in
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                                            scaleB = 1.3
                                         }
-                                        .frame(width: 160, height: 200)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                                                scaleB = 1.0
+                                            }
+                                        }
+                                    }
+                            }
+                            .frame(width: 160, height: 200)
                         }
                         
                     }
                     HStack(spacing: 0){
                         Button(action:{
-                            plusBool = !plusBool
+                            vm.toggleMode()
                         }){
                             Image(systemName: "plusminus")
                                 .foregroundStyle(Color.white)
@@ -168,28 +122,26 @@ struct ContentView: View {
                         Spacer()
                         //Team A
                         Button(action:{
-                            plusBool ? (
-                                scoreA += 1) : scoreA > 0 ? (scoreA -= 1) : ()
+                            vm.updateScoreA(by: 1)
                         }){
                             Text("1")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                             
                         }
                         Spacer()
                         
                         Button(action:{
-                            plusBool ? (
-                                scoreA += 2) : scoreA > 0 ? (scoreA -= 2) : ()
+                            vm.updateScoreA(by: 2)
                         }){
                             Text("2")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                             
                         }
@@ -197,14 +149,13 @@ struct ContentView: View {
                         Spacer()
                         
                         Button(action:{
-                            plusBool ? (
-                                scoreA += 3) : scoreA > 0 ? (scoreA -= 3) : ()
+                            vm.updateScoreA(by: 3)
                         }){
                             Text("3")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                             
                             
@@ -213,39 +164,36 @@ struct ContentView: View {
                         Spacer()
                         //Team B
                         Button(action:{
-                            plusBool ? (
-                                scoreB += 1) : scoreB > 0 ? (scoreB -= 1) : ()
+                            vm.updateScoreB(by: 1)
                         }){
                             Text("1")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                             
                         }
                         Spacer()
                         Button(action:{
-                            plusBool ? (
-                                scoreB += 2) : scoreB > 0 ? (scoreB -= 2) : ()
+                            vm.updateScoreB(by: 2)
                         }){
                             Text("2")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                         }
                         Spacer()
                         Button(action:{
-                            plusBool ? (
-                                scoreB += 3) : scoreB > 0 ? (scoreB -= 3) : ()
+                            vm.updateScoreB(by: 3)
                         }){
                             Text("3")
                                 .foregroundStyle(Color.black)
                                 .fontWeight(.semibold)
                                 .padding()
-                                .background(plusBool ? Color.green : Color.red)
+                                .background(vm.plusBool ? Color.green : Color.red)
                                 .cornerRadius(10)
                         }
                         Spacer()
@@ -268,7 +216,7 @@ struct ContentView: View {
                 
                 HStack{
                     Button(action:{
-                        resetAlert = true
+                        vm.resetAlert = true
                     }){
                         Text("Reset")
                             .padding()
@@ -284,7 +232,7 @@ struct ContentView: View {
                         
                     }
                     Button(action:{
-                        saveGame()
+                        vm.saveGame()
                     }){
                         Text("Finish game")
                             .padding()
@@ -303,9 +251,9 @@ struct ContentView: View {
             }
             .padding()
             .frame(maxHeight:.infinity)
-            .alert("Reset Score",isPresented: $resetAlert) {
+            .alert("Reset Score",isPresented: $vm.resetAlert) {
                 Button("Reset", role: .destructive){
-                    resetScore()
+                    vm.resetScore()
                 }
                 Button("Cancel", role: .cancel){}
                 
@@ -314,23 +262,23 @@ struct ContentView: View {
             }
             .tint(Color("AccentColor"))
             
-            if gameFinished == true {
+            if vm.gameFinished {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        resetScore()
-                        gameFinished = false
+                        vm.resetScore()
+                        vm.gameFinished = false
                     }
                 
                 gameConfirm(
-                    teamA: teamA.isEmpty ? "Team A" : teamA,
-                    teamB: teamB.isEmpty ? "Team B" : teamB,
-                    scoreA: scoreA,
-                    scoreB: scoreB,
-                    result: result,
+                    teamA: vm.teamA.isEmpty ? "Team A" : vm.teamA,
+                    teamB: vm.teamB.isEmpty ? "Team B" : vm.teamB,
+                    scoreA: vm.scoreA,
+                    scoreB: vm.scoreB,
+                    result: vm.result,
                     onConfirm:{
-                        resetScore()
-                        gameFinished = false
+                        vm.resetScore()
+                        vm.gameFinished = false
                     }
                 )
             }
@@ -341,8 +289,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-            .preferredColorScheme(.dark)
+        ContentView(
+            context: PersistenceController.preview.container.viewContext
+        )
+        .preferredColorScheme(.dark)
     }
 }
+

@@ -15,7 +15,9 @@ struct History: View {
             NSSortDescriptor(keyPath: \GameEntity.date, ascending: true)
         ],
         animation: .default
-    ) private var games: FetchedResults<GameEntity>
+    )
+    private var games: FetchedResults<GameEntity>
+    
     private func deleteGame (at offsets: IndexSet){
         for index in offsets{
             let game = games[index]
