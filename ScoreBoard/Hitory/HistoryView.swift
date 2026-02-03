@@ -45,19 +45,6 @@ struct HistoryView: View {
                             } else {
                                 ForEach(vm.games, id: \.self) { game in
                                     VStack(alignment: .center){
-                                        HStack{
-                                            Spacer()
-                                            Menu{
-                                                Button("Delete", role:.destructive){
-                                                    vm.delete(game)
-                                                }
-                                            }label: {
-                                                Image(systemName: "ellipsis")
-                                                    .foregroundStyle(.gray)
-                                                    .imageScale(.large)
-                                            }
-                                        }
-                                        
                                         HStack(alignment: .center) {
                                             Text("\(game.teamA ?? "")")
                                                 .frame(maxWidth: .infinity, alignment:.leading)
@@ -109,6 +96,13 @@ struct HistoryView: View {
                                                 .font(.caption)
                                                 .foregroundStyle(.black.opacity(0.6))
                                             
+                                        }
+                                    }
+                                    .swipeActions(edge:.trailing){
+                                        Button(role:.destructive){
+                                            vm.delete(game)
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
                                         }
                                     }
                                     .listRowBackground(Color.white)
@@ -167,6 +161,13 @@ struct HistoryView: View {
 
 
 #Preview {
-    HistoryView(context: PersistenceController.preview.container.viewContext)
+    HistoryView(
+        context: PersistenceController.preview.container.viewContext
+    )
+        .environment(
+            \.managedObjectContext,
+             PersistenceController.preview.container.viewContext
+        )
         .preferredColorScheme(.dark)
 }
+
