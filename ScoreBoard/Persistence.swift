@@ -7,7 +7,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
-        // Add sample games for preview
+
         for i in 0..<15 {
             let game = GameEntity(context: viewContext)
             game.teamA = "Los Angeles Lakers\(i + 1)"
@@ -31,8 +31,7 @@ struct PersistenceController {
     
     init(inMemory: Bool = false) {
     
-        
-        container = NSPersistentContainer(name: "ScoreBoard") // This matches your ScoreBoard.xcdatamodeld
+        container = NSPersistentContainer(name: "ScoreBoard")
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")

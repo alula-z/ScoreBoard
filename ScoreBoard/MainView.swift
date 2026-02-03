@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Binding var selectTab: Int
     init(selectTab: Binding<Int>){
         self._selectTab = selectTab
@@ -15,13 +16,13 @@ struct MainView: View {
     }
     var body: some View{
         TabView(selection: $selectTab){
-            ContentView()
+            ContentView(context: viewContext)
                 .tabItem{
                     Label("Game", systemImage: "basketball.fill")
                 }
                 .tag(0)
             
-            History()
+            HistoryView(context: viewContext)
                 .tabItem{
                     Label("History", systemImage: "book.fill")
                 }
