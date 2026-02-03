@@ -7,9 +7,14 @@ import CoreData
 //
 import SwiftUI
 import os
-struct History: View {
-    let logger = Logger(subsystem: "me.zeruesenay.alula.ScoreBoard", category: "History")
+struct HistoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var vm : HistoryViewModel
+    
+    init(context: NSManagedObjectContext) {
+        _vm = StateObject(wrappedValue: HistoryViewModel(viewContext: context))
+    }
+    
     @FetchRequest(
         sortDescriptors: [
             NSSortDescriptor(keyPath: \GameEntity.date, ascending: true)
@@ -17,38 +22,8 @@ struct History: View {
         animation: .default
     )
     private var games: FetchedResults<GameEntity>
-    
-    private func deleteGame (at offsets: IndexSet){
-        for index in offsets{
-            let game = games[index]
-            viewContext.delete(game)
-        }
-        
-        do {
-            try viewContext.save()
-        } catch {
-            logger.error("Error deleting game \(error.localizedDescription)")
-        }
-    }
-    private func deleteAllGames() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = GameEntity.fetchRequest()
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        batchDeleteRequest.resultType = .resultTypeObjectIDs
-        
-        do {
-            let result = try viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
-            if let objectIDs = result?.result as? [NSManagedObjectID] {
-                let changes: [AnyHashable: Any] = [
-                    NSDeletedObjectsKey: objectIDs
-                ]
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [viewContext])
-            }
-            logger.log("✅ All games deleted")
-        } catch {
-            logger.error("❌ Failed to delete all games: \(error.localizedDescription)")
-        }
-    }
     @State var showConfirm = false
+    
     var body: some View {
         ZStack {
             Color("BrandBackground")
@@ -62,20 +37,19 @@ struct History: View {
                         .foregroundStyle(.black)
                     VStack(spacing: 0){
                         List {
-                            if games.isEmpty {
+                            if vm.games.isEmpty {
                                 Text("No games saved")
                                     .foregroundStyle(Color.gray)
                                     .background(.white)
                                     .listRowBackground(Color.white)
                             } else {
-                                ForEach(games, id: \.self) { game in
+                                ForEach(vm.games, id: \.self) { game in
                                     VStack(alignment: .center){
                                         HStack{
                                             Spacer()
                                             Menu{
                                                 Button("Delete", role:.destructive){
-                                                    viewContext.delete(game)
-                                                    try? viewContext.save()
+                                                    vm.delete(game)
                                                 }
                                             }label: {
                                                 Image(systemName: "ellipsis")
@@ -165,7 +139,7 @@ struct History: View {
                         .padding(.vertical, 5)
                         .alert("Clear All History", isPresented: $showConfirm) {
                             Button("Clear All", role: .destructive){
-                                deleteAllGames()
+                                vm.deleteAllGames()
                             }
                             Button("Cancel", role:.cancel){}
                         }message: {
@@ -182,14 +156,17 @@ struct History: View {
             }
             
         }
+        .onAppear{
+            vm.loadGames(Array(games))
+        }
+        .onChange(of: games.count) { oldValue, newValue in
+            vm.loadGames(Array(games))
+        }
     }
 }
 
+
 #Preview {
-    History()
-        .environment(
-            \.managedObjectContext,
-             PersistenceController.preview.container.viewContext
-        )
+    HistoryView(context: PersistenceController.preview.container.viewContext)
         .preferredColorScheme(.dark)
 }
